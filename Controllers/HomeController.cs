@@ -3,27 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WADTest.Data;
+using WADTest.Models;
 
 namespace WADTest.Controllers
 {
     public class HomeController : Controller
     {
+        private MyDBContext myDBContext = new MyDBContext();
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Create()
         {
-            ViewBag.Message = "Your application description page.";
-
+            
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Store(string name)
         {
-            ViewBag.Message = "Your contact page.";
 
+            var student = new Student()
+            {
+                Name = name
+            };
+            myDBContext.Students.Add(student);
+            myDBContext.SaveChanges();
             return View();
         }
     }
